@@ -17,7 +17,7 @@
 
     <fragment android:id="@+id/settings_fragment"
               android:label="@string/title_settings"
-              android:name="xyz.wallpanel.app.ui.fragments.SettingsFragment" >
+              android:name="io.github.beecho01.wallpanelreborn.ui.fragments.SettingsFragment" >
         <action android:id="@+id/camera_action" app:destination="@id/camera_fragment"/>
         <action android:id="@+id/mqtt_action" app:destination="@id/mqtt_fragment"/>
         <action android:id="@+id/http_action" app:destination="@id/http_fragment"/>
@@ -27,7 +27,7 @@
 
     <fragment android:id="@+id/camera_fragment"
               android:label="@string/title_camera_settings"
-              android:name="xyz.wallpanel.app.ui.fragments.CameraSettingsFragment" >
+              android:name="io.github.beecho01.wallpanelreborn.ui.fragments.CameraSettingsFragment" >
         <action android:id="@+id/settings_action" app:destination="@id/settings_fragment"/>
         <action android:id="@+id/motion_action" app:destination="@id/motion_fragment"/>
         <action android:id="@+id/face_action" app:destination="@id/face_fragment"/>
@@ -39,43 +39,43 @@
 
     <fragment android:id="@+id/about_fragment"
         android:label="@string/pref_about_title"
-        android:name="xyz.wallpanel.app.ui.fragments.AboutFragment" >
+        android:name="io.github.beecho01.wallpanelreborn.ui.fragments.AboutFragment" >
         <action android:id="@+id/settings_action" app:destination="@id/settings_fragment"/>
     </fragment>
 
     <fragment android:id="@+id/sensors_fragment"
         android:label="@string/title_sensor_settings"
-        android:name="xyz.wallpanel.app.ui.fragments.SensorsSettingsFragment" >
+        android:name="io.github.beecho01.wallpanelreborn.ui.fragments.SensorsSettingsFragment" >
         <action android:id="@+id/settings_action" app:destination="@id/settings_fragment"/>
     </fragment>
 
     <fragment android:id="@+id/mqtt_fragment"
         android:label="@string/title_mqtt_settings"
-        android:name="xyz.wallpanel.app.ui.fragments.MqttSettingsFragment" >
+        android:name="io.github.beecho01.wallpanelreborn.ui.fragments.MqttSettingsFragment" >
         <action android:id="@+id/settings_action" app:destination="@id/settings_fragment"/>
     </fragment>
 
     <fragment android:id="@+id/http_fragment"
         android:label="@string/title_http_settings"
-        android:name="xyz.wallpanel.app.ui.fragments.HttpSettingsFragment" >
+        android:name="io.github.beecho01.wallpanelreborn.ui.fragments.HttpSettingsFragment" >
         <action android:id="@+id/settings_action" app:destination="@id/settings_fragment"/>
     </fragment>
 
     <fragment android:id="@+id/motion_fragment"
         android:label="@string/title_motion_settings"
-        android:name="xyz.wallpanel.app.ui.fragments.MotionSettingsFragment" >
+        android:name="io.github.beecho01.wallpanelreborn.ui.fragments.MotionSettingsFragment" >
         <action android:id="@+id/camera_action" app:destination="@id/camera_fragment"/>
     </fragment>
 
     <fragment android:id="@+id/face_fragment"
         android:label="@string/title_facedetection_settings"
-        android:name="xyz.wallpanel.app.ui.fragments.FaceSettingsFragment" >
+        android:name="io.github.beecho01.wallpanelreborn.ui.fragments.FaceSettingsFragment" >
         <action android:id="@+id/camera_action" app:destination="@id/camera_fragment"/>
     </fragment>
 
     <fragment android:id="@+id/qrcode_fragment"
         android:label="@string/title_qrcode_settings"
-        android:name="xyz.wallpanel.app.ui.fragments.QrCodeSettingsFragment" >
+        android:name="io.github.beecho01.wallpanelreborn.ui.fragments.QrCodeSettingsFragment" >
         <action android:id="@+id/camera_action" app:destination="@id/camera_fragment"/>
     </fragment>
 

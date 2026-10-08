@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xyz.wallpanel.app.ui.views.ScreenSaverView
+<io.github.beecho01.wallpanelreborn.ui.views.ScreenSaverView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/screenSaverView"
@@ -60,4 +60,4 @@
 
     </LinearLayout>
 
-</xyz.wallpanel.app.ui.views.ScreenSaverView>
+</io.github.beecho01.wallpanelreborn.ui.views.ScreenSaverView>

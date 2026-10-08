@@ -14,7 +14,7 @@
   ~ limitations under the License.
   -->
 
-<xyz.wallpanel.app.ui.views.SettingsCodeView
+<io.github.beecho01.wallpanelreborn.ui.views.SettingsCodeView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -86,4 +86,4 @@
         android:layout_width="match_parent"
         android:layout_height="340dp" />
 
-</xyz.wallpanel.app.ui.views.SettingsCodeView>
+</io.github.beecho01.wallpanelreborn.ui.views.SettingsCodeView>
