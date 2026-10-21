@@ -1,0 +1,88 @@
+---
+/**
+ * FAQ: intro with an "ask" card, and an accordion of <details> items that
+ * open natively without JS and animate with src/scripts/fx/faq.js.
+ * Adapted from Lapse (https://github.com/agnilem/lapse-astro).
+ * Copyright (c) 2026 Alex Prokhorov. MIT License, see website/LICENSE-lapse.txt.
+ */
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import { links } from '../../lib/site';
+
+const items = [
+  { q: 'Is it really free?', a: 'Yes. WallPanel Reborn is open source under the Apache 2.0 licence. There are no ads, no in-app purchases, no accounts and no tracking.' },
+  { q: 'Does it work with Home Assistant?', a: 'Yes. Point it at your Home Assistant dashboard URL. With MQTT discovery turned on, the panel’s sensors and motion detection show up in Home Assistant automatically.' },
+  { q: 'Which APK should I download?', a: 'Most tablets made in the last eight years want the arm64-v8a APK. Older 32-bit devices need armeabi-v7a. If you’re not sure, the universal APK runs on everything; it’s just a little larger.' },
+  { q: 'My dashboard doesn’t render properly. Why?', a: 'Pages are drawn by the device’s Android System WebView, not Chrome. Old devices can be stuck on a very old WebView. Update Android System WebView from the Play Store if you can. Loading a newer engine inside the app is on the roadmap.' },
+  { q: 'Is it on the Play Store?', a: 'Not yet. For now, releases are published on GitHub as APKs you can sideload.' },
+  { q: 'How is this related to WallPanel?', a: 'WallPanel Reborn continues WallPanel by ThanksMister and TheTimeWalker, which was archived in 2025. It’s a separate app with its own package name, so the two can be installed side by side.' },
+];
+---
+<section class="faq" id="faq">
+  <div class="intro">
+    <div class="faq-title">
+      <p class="t-eyebrow">FAQ</p>
+      <h2 class="t-h2 balance">Questions, answered</h2>
+    </div>
+    <div class="ask">
+      <div class="ask-content">
+        <h3 class="t-h4">Still stuck?</h3>
+        <p class="t-body-m ask-text">Check the docs, or open an issue on GitHub. Bug reports and feature ideas are welcome.</p>
+      </div>
+      <Button href={links.issues}>Open an issue</Button>
+    </div>
+  </div>
+  <div class="list" data-fx="faq">
+    {items.map((item) => (
+      <details class="item">
+        <summary class="faq-head">
+          <h3 class="q t-h5">{item.q}</h3>
+          <span class="faq-toggle" aria-hidden="true">
+            <span class="toggle-surface"></span>
+            <Icon name="plus" size={16} class="toggle-icon" />
+          </span>
+        </summary>
+        <div class="answer">
+          <p class="t-body-m">{item.a}</p>
+        </div>
+      </details>
+    ))}
+  </div>
+</section>
+
+<style>
+  .faq { width: 100%; max-width: var(--canvas); margin: 0 auto; display: flex; align-items: flex-start; gap: 80px; padding: 100px 20px; }
+  .intro { flex: 1 1 0; min-width: 0; align-self: stretch; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; gap: 40px; }
+  .faq-title { width: 100%; display: flex; flex-direction: column; gap: 20px; }
+  .ask { width: 320px; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 32px; border-radius: var(--radius); background: var(--surface); overflow: clip; }
+  .ask-content { width: 100%; display: flex; flex-direction: column; gap: 8px; }
+  .ask-text { color: var(--dark-grey); }
+
+  .list { width: 662px; flex: none; display: flex; flex-direction: column; gap: 16px; }
+  .item { width: 100%; padding: 28px 32px; border-radius: var(--radius); background: var(--surface); overflow: clip; cursor: pointer; }
+  .faq-head { display: flex; align-items: center; gap: 16px; list-style: none; cursor: pointer; }
+  .faq-head::-webkit-details-marker { display: none; }
+  .faq-head:focus-visible { outline: none; }
+  .item:has(.faq-head:focus-visible) { outline: 2px solid var(--brand); outline-offset: 2px; }
+  .q { flex: 1 1 0; min-width: 0; }
+  .answer { padding-top: 16px; }
+  .answer .t-body-m { color: var(--dark-grey); }
+
+  .faq-toggle { position: relative; flex: none; width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+  .toggle-surface { position: absolute; inset: 0; border-radius: 8px; background: var(--white); transition: background 0.3s var(--ease-soft); }
+  .faq-toggle :global(.toggle-icon) { position: relative; z-index: 1; color: var(--black); transition: transform 0.4s var(--ease-soft); }
+  .faq-toggle :global(path) { stroke-width: 2; }
+  .item[open]:not(.is-closing) .faq-toggle :global(.toggle-icon) { transform: rotate(45deg); }
+  @media (hover: hover) { .item:hover .toggle-surface { background: var(--brand); } }
+
+  @media (max-width: 1199.98px) {
+    .faq { flex-direction: column; gap: 32px; }
+    .intro { width: 100%; flex: none; }
+    .list { width: 100%; }
+  }
+  @media (max-width: 809.98px) {
+    .faq { padding: 64px 16px; }
+    .ask { width: 100%; padding: 24px; }
+    .item { padding: 22px; }
+  }
+</style>

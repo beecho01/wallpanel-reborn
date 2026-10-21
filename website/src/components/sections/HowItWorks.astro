@@ -1,0 +1,134 @@
+---
+/**
+ * "How it works": the section pins while four step cards take turns on stage
+ * (src/scripts/fx/step-scroll.js). Phones get a plain stacked list.
+ * Adapted from Lapse (https://github.com/agnilem/lapse-astro).
+ * Copyright (c) 2026 Alex Prokhorov. MIT License, see website/LICENSE-lapse.txt.
+ */
+import { Image } from 'astro:assets';
+import settings from '../../assets/screens/settings.png';
+import code from '../../assets/screens/code.png';
+import { links } from '../../lib/site';
+
+const steps = [
+  { title: 'Install the APK', description: 'Download the latest release from GitHub and sideload it. Most devices want the arm64-v8a build; the universal APK runs anywhere.', visual: 'apk' },
+  { title: 'Point it at your dashboard', description: 'Open settings with the floating button and enter your dashboard URL. Home Assistant, openHAB, Node-RED or any other web page works.', visual: 'settings' },
+  { title: 'Lock it down', description: 'Set a security code so only you can reach the settings, hide the settings button, and make WallPanel Reborn the home screen for a true kiosk.', visual: 'code' },
+  { title: 'Connect MQTT', description: 'Optionally add your broker. The panel appears in Home Assistant with its sensors, and you can drive it from automations.', visual: 'mqtt' },
+];
+---
+<section class="how" id="how-it-works" data-fx="step-scroll">
+  <div class="how-stage">
+    <div class="how-title">
+      <p class="t-eyebrow">How it works</p>
+      <h2 class="t-h2 balance">From drawer tablet to wall panel in four steps</h2>
+      <p class="t-body-m">No account, no cloud and no server to install. Everything is configured on the device itself.</p>
+      <a class="t-body-m doc-link" href={links.gettingStarted}>Read the getting started guide →</a>
+    </div>
+    {[false, true].map((stacked) => (
+      <div class:list={stacked ? ['stacked', 'phone-only'] : ['box', 'no-phone']}>
+        <div class={stacked ? 'stacked-list' : 'slides'}>
+          {steps.map((s, i) => (
+            <div class:list={['how-card', !stacked && 'slide', stacked && 'stacked-card']} data-step={stacked ? undefined : i} style={!stacked && i ? 'opacity:0' : undefined}>
+              <div class:list={['visual', `visual--${s.visual}`]}>
+                {s.visual === 'settings' && <Image class="shot" src={settings} alt="The WallPanel Reborn settings screen, showing the dashboard URL and security code" widths={[480, 960]} sizes="440px" />}
+                {s.visual === 'code' && <Image class="shot" src={code} alt="The security code keypad shown before settings open" widths={[480, 960]} sizes="440px" />}
+                {s.visual === 'apk' && (
+                  <div class="panel">
+                    <p class="mono-s">RELEASE ASSETS</p>
+                    {[
+                      ['WallPanelApp-arm64-v8a.apk', 'Most devices'],
+                      ['WallPanelApp-armeabi-v7a.apk', '32-bit ARM'],
+                      ['WallPanelApp-universal.apk', 'Any device'],
+                    ].map(([name, note], n) => (
+                      <div class:list={['asset', n === 0 && 'asset--pick']}><span class="mono-m name">{name}</span><span class="mono-s">{note}</span></div>
+                    ))}
+                  </div>
+                )}
+                {s.visual === 'mqtt' && (
+                  <div class="panel">
+                    <p class="mono-s">MQTT SETTINGS</p>
+                    {[
+                      ['Broker', 'tcp://192.168.1.10:1883'],
+                      ['Base topic', 'wallpanel/hallway'],
+                      ['Discovery', 'Enabled'],
+                    ].map(([label, value]) => (
+                      <div class="kv"><span class="kv-label">{label}</span><span class="mono-m kv-value">{value}</span></div>
+                    ))}
+                    <div class="connected"><span class="pulse" aria-hidden="true"></span><span class="mono-m">Connected to broker</span></div>
+                  </div>
+                )}
+              </div>
+              <div class="how-body">
+                {stacked && <p class="t-eyebrow">Step {i + 1}</p>}
+                <h3 class="t-h4">{s.title}</h3>
+                <p class="t-body-m how-desc">{s.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        {!stacked && (
+          <ol class="numbers" aria-hidden="true">
+            {steps.map((_, i) => (
+              <li class="how-num">
+                <span class="t-h4 idle">{i + 1}</span>
+                <span class="t-h4 active gradient-text" data-step={i} style={i ? 'opacity:0' : undefined}>{i + 1}</span>
+              </li>
+            ))}
+          </ol>
+        )}
+      </div>
+    ))}
+  </div>
+</section>
+<style>
+  .how { width: 100%; max-width: var(--canvas); margin: 0 auto; height: 2900px; display: flex; flex-direction: column; align-items: center; }
+  .how-stage { position: sticky; top: 0; width: 100%; height: 760px; padding: 110px 20px 60px; display: flex; align-items: flex-start; gap: 56px; }
+  .how-title { width: 420px; flex: none; display: flex; flex-direction: column; gap: 24px; }
+  .doc-link { color: var(--white); }
+  .doc-link:hover { color: var(--brand); }
+  .box { flex: 1 1 0; min-width: 0; display: flex; justify-content: space-between; align-items: flex-start; padding: 32px; border-radius: var(--radius); background: var(--surface); overflow: clip; }
+  .slides { position: relative; width: 440px; height: 560px; flex: none; }
+  .slide { position: absolute; inset: 0 auto auto 0; will-change: transform, opacity; }
+  .how-card { width: 440px; display: flex; flex-direction: column; gap: 20px; }
+  .how-body { display: flex; flex-direction: column; gap: 14px; }
+  .how-desc { color: var(--dark-grey); }
+  .numbers { list-style: none; width: 28px; display: flex; flex-direction: column; gap: 16px; margin: 0; }
+  .how-num { position: relative; width: 28px; height: 26px; }
+  .how-num > span { position: absolute; inset: 0; }
+  .idle { color: var(--grey-20); }
+
+  .visual { position: relative; width: 100%; aspect-ratio: 1.11; border-radius: var(--radius); overflow: clip; display: flex; align-items: center; justify-content: center; padding: 28px; }
+  .visual--apk { background: radial-gradient(80% 90% at 0% 0%, rgba(91, 196, 241, 0.5), transparent 70%), radial-gradient(70% 70% at 100% 100%, rgba(59, 123, 220, 0.45), transparent 70%), rgb(24, 28, 34); }
+  .visual--mqtt { background: radial-gradient(80% 90% at 100% 0%, rgba(80, 220, 180, 0.42), transparent 70%), radial-gradient(70% 70% at 0% 100%, rgba(140, 120, 255, 0.4), transparent 70%), rgb(24, 28, 30); }
+  .visual--settings, .visual--code { padding: 0; background: rgb(22, 22, 22); }
+  .visual :global(.shot) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: left top; }
+  .visual--code :global(.shot) { object-position: 30% top; }
+
+  .panel { width: 100%; display: flex; flex-direction: column; gap: 12px; padding: 20px; border-radius: 14px; background: var(--black); box-shadow: 0 14px 34px -14px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.05); }
+  .mono-s { font-family: var(--font-mono); font-size: 11px; line-height: 1.2em; letter-spacing: 0.88px; color: var(--dark-grey); }
+  .mono-m { font-family: var(--font-mono); font-size: 12px; line-height: 1.2em; color: var(--grey); }
+  .asset { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 14px; border-radius: 10px; background: var(--surface-2); }
+  .asset .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .asset--pick { box-shadow: inset 0 0 0 1px rgba(91, 196, 241, 0.55); }
+  .asset--pick .name { color: var(--white); }
+  .kv { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
+  .kv-label { font-size: 15px; color: rgb(165, 164, 159); }
+  .kv-value { color: var(--white); }
+  .connected { display: flex; align-items: center; gap: 10px; padding-top: 4px; }
+  .pulse { width: 8px; height: 8px; border-radius: 999px; background: rgb(110, 220, 170); box-shadow: 0 0 0 4px rgba(110, 220, 170, 0.18); }
+
+  @media (max-width: 1199.98px) {
+    .how-stage { height: 1040px; flex-direction: column; gap: 32px; }
+    .how-title { width: 100%; }
+    .box { width: 100%; flex: none; }
+  }
+  @media (max-width: 809.98px) {
+    .how { height: auto; }
+    .how-stage { position: relative; height: auto; padding: 64px 16px; }
+    .stacked { width: 100%; }
+    .stacked-list { display: flex; flex-direction: column; gap: 16px; }
+    .stacked-card { width: 100%; padding: 16px; border-radius: var(--radius); background: var(--surface); }
+    .visual { padding: 16px; }
+  }
+</style>

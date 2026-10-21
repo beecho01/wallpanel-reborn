@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="WallPanel Reborn">
+  <rect width="24" height="24" rx="5.5" fill="#5bc4f1"/>
+  <g fill="#fff">
+    <rect x="5" y="5" width="6.25" height="8.5" rx="0.75"/>
+    <rect x="12.75" y="5" width="6.25" height="4" rx="0.75"/>
+    <rect x="5" y="15" width="6.25" height="4" rx="0.75"/>
+    <rect x="12.75" y="10.5" width="6.25" height="8.5" rx="0.75"/>
+  </g>
+</svg>

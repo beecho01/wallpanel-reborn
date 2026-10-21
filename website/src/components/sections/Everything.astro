@@ -1,0 +1,88 @@
+---
+import Icon from '../ui/Icon.astro';
+import Button from '../ui/Button.astro';
+import { links } from '../../lib/site';
+
+const items = [
+  { icon: 'speech', title: 'Text-to-speech', text: 'Announce doorbells, alarms and reminders through the tablet’s speaker.' },
+  { icon: 'video', title: 'MJPEG camera stream', text: 'Use the front camera as a simple network camera on your LAN.' },
+  { icon: 'qr', title: 'QR code reading', text: 'Scan codes with the camera and publish them over MQTT.' },
+  { icon: 'home', title: 'Kiosk mode', text: 'Set it as the home screen so the panel is all anyone sees.' },
+  { icon: 'lock', title: 'Protected settings', text: 'A code guards settings, and the button can be made invisible.' },
+  { icon: 'launch', title: 'Launch other apps', text: 'Open camera, intercom or music apps with intent URLs.' },
+  { icon: 'sensor', title: 'Home Assistant discovery', text: 'Sensors and controls show up in Home Assistant on their own.' },
+  { icon: 'sun', title: 'Brightness control', text: 'Set the screen brightness remotely or let the screensaver dim it.' },
+];
+---
+<section class="everything" id="more">
+  <div class="intro" data-fx="appear">
+    <p class="t-eyebrow">And the rest</p>
+    <h2 class="t-h2 balance">Small things that make a panel feel finished</h2>
+  </div>
+  <div class="grid">
+    {items.map((it) => (
+      <div class="item" data-fx="appear">
+        <span class="badge"><Icon name={it.icon} size={20} /></span>
+        <h3 class="t-h5">{it.title}</h3>
+        <p class="t-body-s">{it.text}</p>
+      </div>
+    ))}
+  </div>
+
+  <div class="legacy" data-fx="appear">
+    <div class="legacy-copy">
+      <p class="t-eyebrow">Built for old hardware</p>
+      <h2 class="t-h3 balance">Give that old tablet a second life</h2>
+      <p class="t-body-m">WallPanel Reborn supports Android 7.0 and newer, so retired tablets and cheap photo frames make great panels. Many of these devices are stuck on an ancient system WebView that modern dashboards struggle with. We’re working on loading a newer browser engine inside the app, so even those devices can render today’s dashboards.</p>
+      <div class="legacy-ctas">
+        <Button href={links.limitations} variant="secondary">About WebView limits</Button>
+        <Button href={links.issues} variant="ghost">Follow progress on GitHub</Button>
+      </div>
+    </div>
+    <div class="versions" aria-label="Newest Chromium engine available per Android version">
+      {[
+        ['Android 7.x', 'Chromium 119', 52],
+        ['Android 8–9', 'Chromium 138', 76],
+        ['Android 10+', 'Latest', 100],
+      ].map(([os, engine, pct]) => (
+        <div class="ver">
+          <div class="ver-row"><span class="t-body-m ver-os">{os}</span><span class="ver-engine">{engine}</span></div>
+          <div class="bar"><span style={`width:${pct}%`}></span></div>
+        </div>
+      ))}
+      <p class="t-body-s">Newest WebView engine each Android version can run.</p>
+    </div>
+  </div>
+</section>
+<style>
+  .everything { width: 100%; max-width: var(--canvas); margin: 0 auto; padding: 100px 20px; display: flex; flex-direction: column; gap: 48px; }
+  .intro { width: 640px; display: flex; flex-direction: column; gap: 20px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .item { display: flex; flex-direction: column; gap: 12px; padding: 28px; border-radius: var(--radius); background: var(--surface); transition: background 0.3s var(--ease-soft); }
+  .item:hover { background: rgba(255, 255, 255, 0.075); }
+  .badge { width: 40px; height: 40px; margin-bottom: 8px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; color: var(--brand); background: rgba(91, 196, 241, 0.1); box-shadow: inset 0 0 0 1px rgba(91, 196, 241, 0.2); }
+
+  .legacy { margin-top: 32px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center; padding: 48px; border-radius: var(--radius); background: radial-gradient(70% 100% at 100% 0%, rgba(59, 123, 220, 0.22), transparent 70%), var(--surface); }
+  .legacy-copy { display: flex; flex-direction: column; gap: 20px; }
+  .legacy-ctas { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .versions { display: flex; flex-direction: column; gap: 22px; padding: 28px; border-radius: 14px; background: var(--black); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05); }
+  .ver { display: flex; flex-direction: column; gap: 10px; }
+  .ver-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .ver-os { color: var(--white); }
+  .ver-engine { font-family: var(--font-mono); font-size: 13px; color: var(--grey); }
+  .bar { height: 6px; border-radius: 999px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
+  .bar span { display: block; height: 100%; border-radius: 999px; background: var(--brand-gradient); }
+
+  @media (max-width: 1199.98px) {
+    .intro { width: 100%; }
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .legacy { grid-template-columns: 1fr; padding: 36px; }
+  }
+  @media (max-width: 809.98px) {
+    .everything { padding: 64px 16px; gap: 32px; }
+    .grid { grid-template-columns: 1fr; gap: 12px; }
+    .item { padding: 22px; }
+    .legacy { padding: 24px; gap: 28px; margin-top: 16px; }
+    .versions { padding: 20px; }
+  }
+</style>

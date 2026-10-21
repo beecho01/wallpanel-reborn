@@ -1,0 +1,31 @@
+---
+title: Documentation
+description: Set up WallPanel Reborn, control it over MQTT or HTTP, and get the most from its sensors, camera and screensaver.
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+WallPanel Reborn turns an Android tablet into an always-on panel for Home Assistant or any web dashboard. Start with the getting started guide, then add MQTT if you want to control the panel from your automations.
+
+## Start here
+
+<CardGrid>
+  <LinkCard title="Getting started" description="Install the APK, set your dashboard URL and protect the settings." href="/wallpanel-reborn/docs/getting-started/" />
+  <LinkCard title="Limitations" description="Why some pages render differently, and what to do about old WebViews." href="/wallpanel-reborn/docs/limitations/" />
+</CardGrid>
+
+## Remote control
+
+<CardGrid>
+  <LinkCard title="MQTT setup" description="Connect to your broker and turn on Home Assistant discovery." href="/wallpanel-reborn/docs/remote-control/mqtt-setup/" />
+  <LinkCard title="Commands" description="Every MQTT and HTTP command: URL, wake, brightness, speak and more." href="/wallpanel-reborn/docs/remote-control/commands/" />
+  <LinkCard title="Sensors" description="What the panel publishes, and example Home Assistant configuration." href="/wallpanel-reborn/docs/remote-control/sensors/" />
+</CardGrid>
+
+## Features
+
+<CardGrid>
+  <LinkCard title="Screensaver and brightness" description="Dim the screen when idle and wake it with motion." href="/wallpanel-reborn/docs/screensaver/" />
+  <LinkCard title="Video streaming" description="Use the camera as an MJPEG stream on your network." href="/wallpanel-reborn/docs/video-streaming/" />
+  <LinkCard title="Launch external apps" description="Open other Android apps with intent URLs." href="/wallpanel-reborn/docs/launch-external-apps/" />
+</CardGrid>

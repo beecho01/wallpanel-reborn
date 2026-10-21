@@ -1,0 +1,86 @@
+---
+/**
+ * Sticky glass capsule nav. On desktop the links fold away once the page
+ * scrolls and return on hover; below 1200px the dots open a dropdown.
+ * Adapted from Lapse (https://github.com/agnilem/lapse-astro).
+ * Copyright (c) 2026 Alex Prokhorov. MIT License, see website/LICENSE-lapse.txt.
+ */
+import mark from '../assets/mark.svg?raw';
+import Button from './ui/Button.astro';
+import Icon from './ui/Icon.astro';
+import { links, nav, url } from '../lib/site';
+---
+<div class="topbar" data-fx="nav">
+  <nav class="nav" aria-label="Main">
+    <div class="bar">
+      <div class="capsule">
+        <a class="logo" href={url('/')} aria-label="WallPanel Reborn home">
+          <span class="mark" set:html={mark} />
+          <span class="wordmark">WallPanel <span class="muted">Reborn</span></span>
+        </a>
+        <div class="links desktop-only">
+          {nav.map((l) => <a class="link" href={l.href}>{l.label}</a>)}
+        </div>
+        <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu" tabindex="-1">
+          <Icon name="dots-nine" class="i-open" />
+          <Icon name="x" class="i-close" />
+        </button>
+      </div>
+      <div class="buttons desktop-only">
+        <Button href={links.github} variant="ghost"><Icon name="github" size={16} />GitHub</Button>
+        <Button href={links.download}>Download</Button>
+      </div>
+    </div>
+    <div class="menu below-desktop" id="nav-menu">
+      <div class="menu-links">
+        {nav.map((l) => <a class="menu-link" href={l.href}>{l.label}</a>)}
+        <a class="menu-link" href={links.github} target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+      <div><Button href={links.download}>Download APK</Button></div>
+    </div>
+  </nav>
+</div>
+<style>
+  .topbar { position: sticky; top: 0; z-index: 5; width: 100%; max-width: var(--canvas); margin: 0 auto; }
+  .nav { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 20px; height: 91px; }
+  .bar { display: flex; align-items: center; justify-content: space-between; }
+  .capsule, .buttons { background: rgba(28, 28, 28, 0.6); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 16px; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06); }
+  .capsule {
+    display: flex; align-items: center; justify-content: center; gap: 56px; padding: 10px 20px;
+    transition: gap 0.45s var(--ease-soft);
+  }
+  .logo { display: inline-flex; align-items: center; gap: 10px; }
+  .mark :global(svg) { width: 26px; height: 26px; }
+  .wordmark { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; }
+  .links {
+    display: flex; align-items: center; gap: 20px; overflow: hidden; max-width: 480px;
+    transition: opacity 0.45s var(--ease-soft), max-width 0.45s var(--ease-soft);
+  }
+  .link { font-size: 15px; color: var(--grey); white-space: nowrap; user-select: none; transition: color 0.2s; }
+  .link:hover { color: var(--white); }
+  .nav-toggle { display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 8px; color: var(--grey); cursor: default; }
+  .nav-toggle :global(.i-close) { display: none; }
+  .buttons { display: flex; align-items: center; justify-content: center; gap: 4px; padding: 6px; }
+  .topbar.is-collapsed .capsule { gap: 32px; }
+  .topbar.is-collapsed .links { opacity: 0; max-width: 0; }
+
+  .menu {
+    position: absolute; left: 16px; right: 16px; top: 72px; display: flex; flex-direction: column; gap: 20px; padding: 20px;
+    background: rgba(16, 16, 16, 0.94); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 16px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    opacity: 0; pointer-events: none; transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .menu-links { display: flex; flex-direction: column; gap: 16px; }
+  .menu-link { color: var(--white); font-size: 16px; }
+
+  @media (max-width: 1199.98px) {
+    .nav { padding: 16px; height: 77px; }
+    .bar { justify-content: flex-start; }
+    .capsule { width: 100%; justify-content: space-between; }
+    .nav-toggle { cursor: pointer; }
+    .topbar.is-open .menu { opacity: 1; pointer-events: auto; }
+    .topbar.is-open .nav-toggle :global(.i-open) { display: none; }
+    .topbar.is-open .nav-toggle :global(.i-close) { display: inline-flex; }
+  }
+  @media (prefers-reduced-motion: reduce) { .capsule, .links, .menu { transition: none; } }
+</style>

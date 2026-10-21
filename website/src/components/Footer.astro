@@ -1,0 +1,108 @@
+---
+/**
+ * Closing call to action over a particle field that rebuilds the panel logo
+ * (src/scripts/fx/particle-field.js; move the pointer through it), then the footer.
+ * Adapted from Lapse (https://github.com/agnilem/lapse-astro).
+ * Copyright (c) 2026 Alex Prokhorov. MIT License, see website/LICENSE-lapse.txt.
+ */
+import mark from '../assets/mark.svg?raw';
+import Button from './ui/Button.astro';
+import Icon from './ui/Icon.astro';
+import { links, url } from '../lib/site';
+
+const columns = [
+  { label: 'Product', links: [
+    { label: 'Download', href: links.download, external: true },
+    { label: 'Releases', href: links.releases, external: true },
+    { label: 'Documentation', href: links.docs },
+    { label: 'Privacy policy', href: links.privacy },
+  ] },
+  { label: 'Project', links: [
+    { label: 'GitHub', href: links.github, external: true },
+    { label: 'Report an issue', href: links.issues, external: true },
+    { label: 'Licence', href: `${links.github}/blob/main/LICENSE`, external: true },
+  ] },
+  { label: 'Original WallPanel', links: [
+    { label: 'ThanksMister', href: 'https://github.com/thanksmister/wallpanel-android', external: true },
+    { label: 'TheTimeWalker', href: 'https://github.com/TheTimeWalker/wallpanel-android', external: true },
+    { label: 'quadportnick', href: 'https://github.com/WallPanel-Project/wallpanel-android', external: true },
+  ] },
+];
+---
+<section class="cta" id="download">
+  <div class="cta-stage">
+    <div class="particles" data-fx="particle-field" data-src={url('/cta-panel.svg')} role="img" aria-label="The WallPanel Reborn panel logo drawn in glowing particles"></div>
+  </div>
+  <div class="cta-row">
+    <h2 class="t-h2 cta-heading balance"><span class="muted">That spare tablet in the drawer?</span> It’s a wall panel now.</h2>
+    <div class="cta-side">
+      <p class="t-body-m">Free, open source and ready to sideload. Set up takes about five minutes.</p>
+      <div class="cta-buttons">
+        <Button href={links.download}><Icon name="download" size={16} />Download APK</Button>
+        <Button href={links.github} variant="secondary"><Icon name="github" size={16} />Star on GitHub</Button>
+      </div>
+    </div>
+  </div>
+</section>
+<footer class="footer">
+  <div class="footer-rule"></div>
+  <div class="main">
+    <a class="brand" href={url('/')}>
+      <span class="mark" set:html={mark} />
+      <span>WallPanel Reborn</span>
+    </a>
+    <div class="columns">
+      {columns.map((col) => (
+        <div class="col">
+          <p class="t-body-s col-label">{col.label}</p>
+          {col.links.map((l) => (
+            <p class="t-body-s"><a class="col-link" href={l.href} {...(l.external ? { target: '_blank', rel: 'noreferrer' } : {})}>{l.label}</a></p>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+  <div class="bottom">
+    <p class="t-body-s">© {new Date().getFullYear()} WallPanel Reborn contributors. Apache License 2.0.</p>
+    <p class="t-body-s">Site design adapted from <a class="col-link" href="https://github.com/agnilem/lapse-astro" target="_blank" rel="noreferrer">Lapse</a> by Alex Prokhorov (MIT).</p>
+  </div>
+</footer>
+<style>
+  .cta { width: 100%; max-width: var(--canvas); margin: 0 auto; padding: 60px 0 100px; overflow: clip; display: flex; flex-direction: column; }
+  .cta-stage { width: 100%; height: 560px; background: var(--black); overflow: clip; }
+  .particles { width: 100%; height: 100%; }
+  .cta-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; padding: 20px; }
+  .cta-heading { width: 656px; }
+  .cta-side { width: 340px; display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
+  .cta-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  .footer { width: 100%; max-width: var(--canvas); margin: 0 auto; padding: 0 20px 60px; overflow: clip; display: flex; flex-direction: column; }
+  .footer-rule { height: 1px; background: var(--grey-20); }
+  .main { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; padding-top: 48px; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+  .mark :global(svg) { width: 28px; height: 28px; }
+  .columns { display: flex; gap: 50px; }
+  .col { width: 160px; display: flex; flex-direction: column; gap: 12px; }
+  .col-label { color: var(--white); }
+  .col-link { color: var(--grey); transition: color 0.2s; }
+  .col-link:hover { color: var(--white); }
+  .bottom { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-top: 64px; }
+
+  @media (max-width: 1199.98px) {
+    .cta-stage { height: 480px; }
+    .cta-row { flex-direction: column; align-items: flex-start; gap: 32px; }
+    .cta-heading, .cta-side { width: 100%; }
+    .main { flex-direction: column; }
+    .columns { gap: 32px; }
+  }
+  @media (max-width: 809.98px) {
+    .cta { padding: 32px 0 64px; }
+    .cta-stage { height: 300px; }
+    .cta-row { padding: 20px 16px; gap: 24px; }
+    .footer { padding: 0 16px 48px; }
+    .main { gap: 32px; }
+    .columns { flex-wrap: wrap; gap: 24px; }
+    .col { width: calc(50% - 12px); }
+    .bottom { flex-direction: column; align-items: flex-start; gap: 12px; }
+  }
+</style>
