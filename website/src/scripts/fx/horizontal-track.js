@@ -8,9 +8,9 @@ const COLUMN = 1160;
 const GUTTER = 20;
 
 export function mount(section) {
-  const stage = section.querySelector('.changes-stage');
-  const viewport = section.querySelector('.changes-viewport');
-  const track = section.querySelector('.changes-track');
+  const stage = section.querySelector('.stage');
+  const viewport = section.querySelector('.viewport');
+  const track = section.querySelector('.track');
   let frame = 0;
   const update = () => {
     frame = 0;
