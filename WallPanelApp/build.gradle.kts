@@ -19,6 +19,20 @@ val localProperties = Properties().apply {
 
 fun localString(key: String): String = "\"${localProperties.getProperty(key, "")}\""
 
+// Release signing, kept out of the repo. CI passes the WPR_* environment variables;
+// locally, local.properties can point signingProperties at a keystore.properties file
+// (storeFile, storePassword, keyAlias, keyPassword). Without either, release builds are unsigned.
+val releaseSigning: Properties? = System.getenv("WPR_KEYSTORE_FILE")?.let { storeFile ->
+    Properties().apply {
+        setProperty("storeFile", storeFile)
+        setProperty("storePassword", System.getenv("WPR_KEYSTORE_PASSWORD").orEmpty())
+        setProperty("keyAlias", System.getenv("WPR_KEY_ALIAS").orEmpty())
+        setProperty("keyPassword", System.getenv("WPR_KEY_PASSWORD").orEmpty())
+    }
+} ?: localProperties.getProperty("signingProperties")?.let { path ->
+    Properties().apply { file(path).inputStream().use { load(it) } }
+}
+
 android {
     namespace = "io.github.beecho01.wallpanelreborn"
     compileSdk = 37
@@ -48,8 +62,20 @@ android {
         }
     }
 
+    signingConfigs {
+        if (releaseSigning != null) {
+            create("release") {
+                storeFile = file(releaseSigning.getProperty("storeFile"))
+                storePassword = releaseSigning.getProperty("storePassword")
+                keyAlias = releaseSigning.getProperty("keyAlias")
+                keyPassword = releaseSigning.getProperty("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig = signingConfigs.findByName("release")
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }

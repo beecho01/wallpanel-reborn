@@ -7,7 +7,8 @@ export const url = (path: string) => `${base}${path.startsWith('/') ? path : `/$
 export const repo = 'https://github.com/beecho01/wallpanel-reborn';
 
 export const links = {
-  download: `${repo}/releases/latest`,
+  // Releases page rather than /releases/latest, which skips prereleases.
+  download: `${repo}/releases`,
   releases: `${repo}/releases`,
   issues: `${repo}/issues`,
   github: repo,
