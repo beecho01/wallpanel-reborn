@@ -5,10 +5,13 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
-val versionMajor = 1
-val versionMinor = 0
-val versionPatch = 0
-val versionBuild = 0 // bump for dog food builds, public betas, etc.
+// Calendar versioning: YYYY.MM.DD, with an optional .N for extra releases on the same day.
+// CI passes -PappVersion from the release tag (v2026.10.21 -> 2026.10.21).
+val appVersion = (findProperty("appVersion") as String?) ?: "2026.10.21"
+val appVersionCode: Int = Regex("""(\d{4})\.(\d{1,2})\.(\d{1,2})(?:\.(\d{1,2}))?""").matchEntire(appVersion)
+    ?.destructured
+    ?.let { (y, m, d, n) -> y.toInt() * 1_000_000 + m.toInt() * 10_000 + d.toInt() * 100 + (n.toIntOrNull() ?: 0) }
+    ?: error("appVersion must look like YYYY.MM.DD or YYYY.MM.DD.N, got '$appVersion'")
 
 // Optional developer defaults for debug builds, read from local.properties
 // (code, hassUrl, broker, brokerUsername, brokerPass). Missing keys are ignored.
@@ -41,8 +44,8 @@ android {
         applicationId = "io.github.beecho01.wallpanelreborn"
         minSdk = 24
         targetSdk = 33
-        versionCode = versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
-        versionName = "$versionMajor.$versionMinor.$versionPatch"
+        versionCode = appVersionCode
+        versionName = appVersion
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 

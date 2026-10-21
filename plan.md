@@ -16,7 +16,7 @@ Last updated: 2026-10-21.
 | minSdk | 24 (Android 7.0) |
 | UI | Jetpack Compose + Material 3 (phase 4) |
 | WebView | The app supplies its own newer Chromium WebView for each Android tier (see below). |
-| Versioning | Restart at 1.0.0 for Reborn. |
+| Versioning | Calendar versioning: `YYYY.MM.DD` (plus `.N` for a second release that day), tagged `vYYYY.MM.DD`. versionCode is `YYYYMMDDNN`. First release 2026.10.21. |
 | Feedback | Opens GitHub Issues rather than email. The "Rate" entry is hidden until there's a store listing. |
 
 Note: the upstream README offers to hand over the Play listing, signing keys and domain to a new maintainer. We chose to rebrand instead. It may still be worth contacting them later, for example to publish a final update to the old Play listing pointing users to Reborn.

@@ -39,7 +39,7 @@ jobs:
           if-no-files-found: error
 
   release:
-    # Push a tag like v1.0.0 to build release APKs signed with the key in the
+    # Push a tag like v2026.10.21 to build release APKs signed with the key in the
     # repository secrets and publish them as a GitHub prerelease.
     if: startsWith(github.ref, 'refs/tags/v')
     needs: build
@@ -73,7 +73,7 @@ jobs:
           WPR_KEYSTORE_PASSWORD: ${{ secrets.WPR_KEYSTORE_PASSWORD }}
           WPR_KEY_ALIAS: ${{ secrets.WPR_KEY_ALIAS }}
           WPR_KEY_PASSWORD: ${{ secrets.WPR_KEY_PASSWORD }}
-        run: ./gradlew :WallPanelApp:assembleRelease
+        run: ./gradlew :WallPanelApp:assembleRelease -PappVersion="${GITHUB_REF_NAME#v}"
 
       - name: Verify signatures and rename
         run: |
