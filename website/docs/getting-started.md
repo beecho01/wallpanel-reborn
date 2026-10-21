@@ -5,26 +5,24 @@ sidebar_position: 1
 
 ## Installation
 
-You can either side load the application to your device from the [release section](https://github.com/thetimewalker/wallpanel-android/releases) or install the application from [Google Play](https://play.google.com/store/apps/details?id=xyz.wallpanel.app).
+Download the latest APK from the [releases page](https://github.com/beecho01/wallpanel-reborn/releases) and sideload it onto your device. For most devices, use the `arm64-v8a` APK. If you're not sure which one you need, use the `universal` APK.
 
 :::important
-If you have need support for older Android 4.0 devices (those below Android 4.4), you want to use the [legacy version](https://github.com/thanksmister/wallpanel-android-legacy) of the application. Alternatively you can download an APK from the release section prior to release v0.8.8-beta.6
+WallPanel Reborn requires Android 7.0 (API 24) or newer.
 :::
 
 ## Using the App
 
-To begin using WallPanel, you need to do two things.  First enter the settings screen and reset your settings password. The default code to enter the settings is **`1234`**. There is a floating button on the screen in the lower-right corner.
+To begin using WallPanel Reborn, you need to do two things. First, open the settings screen and change your settings code. The default code is **`1234`**. The settings button floats in the lower-right corner of the screen.
 
 ![Settings Button](/img/settings_button.png)
 
-Once you enter the settings screen, you can change the settings code to any 4-digit code using, just remember the code will always be needed to enter the settings. Now edit the Dashboard url, this is the web site or home automation platform dashboard you want to use with the application. Note that initially, the application shows the Github page for the project.  
+Once you're in the settings screen, you can change the settings code to any 4-digit code. Remember it, because you'll need it every time you open the settings. Next, edit the dashboard URL. This is the website or home automation dashboard you want the app to show. When you first install the app, it shows the project's GitHub page.
 
 ![Setting Code](/img/settings_dashboard.png)
 
-You also have the option in the settings to change the location of the settings button to any of the four corners of the application, as well as make the button transparent.  If you make the button transparent, you must recall the last location of the button in order to press the now invisible button on your screen. 
+In the settings you can also move the settings button to any of the four corners of the screen, and make it transparent. If you make the button transparent, you'll need to remember where it is so you can press it.
 
 ![Setting Button Options](/img/settings_button_options.png)
 
-Once you have setup the code and dashboard url, each time you enter the settings, you will be prompted to enter the code.
-
-![Settings Code](https://github.com/thanksmister/wallpanel-android/blob/master/img/settings_code.png)
+Once you've set the code and dashboard URL, you'll be asked for the code each time you open the settings.

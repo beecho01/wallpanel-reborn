@@ -1,7 +1,7 @@
 # WallPanel Reborn – Revival Plan
 
 Working notes for reviving the archived [TheTimeWalker/wallpanel-android](https://github.com/TheTimeWalker/wallpanel-android) as **WallPanel Reborn**.
-Last updated: 2026-10-08.
+Last updated: 2026-10-21.
 
 ## Decisions (settled)
 
@@ -9,7 +9,7 @@ Last updated: 2026-10-08.
 |---|---|
 | Name | **WallPanel Reborn**. Checked on 2026-10-08: no clash on GitHub, Play Store or F-Droid. |
 | Application ID / namespace | `io.github.beecho01.wallpanelreborn`. Hyphens aren't allowed in IDs, so `wallpanel-reborn` was rejected. |
-| GitHub repo | `beecho01/wallpanel-reborn` (to be created) |
+| GitHub repo | `beecho01/wallpanel-reborn`. It currently exists as `Wallpanel-Reborn` and needs renaming to lowercase to match the Pages URL. |
 | Website / hosting | GitHub Pages at `https://beecho01.github.io/wallpanel-reborn`, chosen because it's free. The old `wallpanel.xyz` domain is dropped. |
 | Attribution | Homage: "A continuation of WallPanel by ThanksMister and TheTimeWalker." Keep the Apache 2.0 licence and the original copyright headers. |
 | Icon | New adaptive (Material You) icon that keeps the original panel/window shape. |
@@ -39,9 +39,9 @@ Note: the upstream README offers to hand over the Play listing, signing keys and
   - Some source files use CRLF line endings, so scripted find/replace must handle `\r\n`.
   - AGP 9 has built-in Kotlin. Don't apply `org.jetbrains.kotlin.android`, and use KSP rather than kapt.
 
-## Phase 1: Modernise build and rebrand (IN PROGRESS, branch `reborn/phase-1`)
+## Phase 1: Modernise build and rebrand (IN PROGRESS, committing straight to `main`)
 
-Done (not yet committed):
+Done (committed in `fdc8531`):
 - [x] Gradle 7.4 → **9.8.1**; AGP 7.3 → **9.4.1**; Kotlin 1.6 → **2.4.21** (built-in); kapt → **KSP 2.3.12**
 - [x] Groovy → Kotlin DSL (`settings.gradle.kts`, `build.gradle.kts`, `WallPanelApp/build.gradle.kts`) plus a version catalog (`gradle/libs.versions.toml`)
 - [x] minSdk 19 → 24, compileSdk 37, Java 17. **targetSdk kept at 33 for now** (see Phase 1b).
@@ -56,16 +56,17 @@ Done (not yet committed):
 - [x] **Debug build compiles, installs and launches on the API 25 test device without crashing.** Not tested beyond launching.
 
 Remaining:
-- [ ] Rewrite `README.md`: Reborn intro, homage and attribution, install from GitHub Releases, remove the "ARCHIVED" notice
-- [ ] Add a `NOTICE` file (Apache 2.0 attribution to ThanksMister / TheTimeWalker)
-- [ ] Remove `CNAME` (wallpanel.xyz); update `_config.yml`
-- [ ] `website/docusaurus.config.js`: `url: 'https://beecho01.github.io'`, `baseUrl: '/wallpanel-reborn/'`, `organizationName: 'beecho01'`, `projectName: 'wallpanel-reborn'`, title "WallPanel Reborn"; review the docs text
-- [ ] GitHub Actions: build the APK on PR/push; attach release APKs to GitHub Releases; deploy the website to Pages
-- [ ] New adaptive launcher icon (keep the panel/window motif) plus a monochrome themed icon
-- [ ] Manifest cleanup: the `com.google.android.gms.version` meta-data is redundant
+- [x] Rewrite `README.md`: Reborn intro, homage and attribution, install from GitHub Releases, "ARCHIVED" notice removed
+- [x] Add a `NOTICE` file (Apache 2.0 attribution to quadportnick / ThanksMister / TheTimeWalker)
+- [x] Remove `CNAME` (wallpanel.xyz) and `.github/FUNDING.yml` (pointed at TheTimeWalker); update `_config.yml`
+- [x] Website: Docusaurus config moved to `beecho01.github.io/wallpanel-reborn/`; getting started, limitations and privacy policy rewritten (no Firebase, contact via GitHub Issues). Builds locally.
+- [x] GitHub Actions: `android.yml` builds debug APKs on push/PR and, on a `v*` tag, attaches them to a prerelease; `website.yml` deploys the site to Pages
+- [x] Manifest cleanup: removed the redundant `com.google.android.gms.version` meta-data
+- [x] `gradlew` marked executable in git (needed for Linux CI)
+- [ ] Rename the GitHub repo `Wallpanel-Reborn` → `wallpanel-reborn`, update `origin`, and set Settings → Pages → Source to "GitHub Actions"
+- [ ] New adaptive launcher icon (keep the panel/window motif) plus a monochrome themed icon. The same artwork is also `assets/icon.png`, used by `error_page.html` (shown by `InternalWebClient` when a page fails to load), so replace it there too.
 - [ ] Clean up the build warnings (deprecations) as files are touched
-- [ ] Create the GitHub repo `beecho01/wallpanel-reborn`, set it as `origin`, and keep upstream as `upstream`
-- [ ] Commit
+- [ ] Release signing (deferred; debug-signed APKs for now)
 
 ### Phase 1b: targetSdk 33 → 36
 

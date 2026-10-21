@@ -6,15 +6,16 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'WallPanel',
+  title: 'WallPanel Reborn',
   tagline: 'Android application for web-based dashboards',
-  url: 'https://wallpanel.xyz',
-  baseUrl: '/',
+  url: 'https://beecho01.github.io',
+  baseUrl: '/wallpanel-reborn/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'TheTimeWalker',
-  projectName: 'wallpanel-android',
+  organizationName: 'beecho01',
+  projectName: 'wallpanel-reborn',
+  trailingSlash: false,
 
   presets: [
     [
@@ -24,7 +25,7 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
-            'https://github.com/TheTimeWalker/wallpanel-android/tree/master/website/',
+            'https://github.com/beecho01/wallpanel-reborn/tree/main/website/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -41,9 +42,9 @@ const config = {
         disableSwitch: true,
       },
       navbar: {
-        title: 'WallPanel',
+        title: 'WallPanel Reborn',
         logo: {
-          alt: 'WallPanel Logo',
+          alt: 'WallPanel Reborn Logo',
           src: 'img/logo.png',
         },
         items: [
@@ -59,7 +60,7 @@ const config = {
             label: 'Privacy Policy',
           },
           {
-            href: 'https://github.com/TheTimeWalker/wallpanel-android',
+            href: 'https://github.com/beecho01/wallpanel-reborn',
             label: 'GitHub',
             position: 'right',
           },
@@ -67,7 +68,7 @@ const config = {
       },
       footer: {
         style: 'dark',
-        copyright: `Copyright © ${new Date().getFullYear()} WallPanel Contributors. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} WallPanel Reborn contributors. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,

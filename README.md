@@ -1,16 +1,18 @@
-# ARCHIVED
+# WallPanel Reborn
 
-This project is now archived. As the maintainer of this project since 2022, I unfortunately didn't really live up to the standards to properly maintain this project. When taking over as maintainer, I was at the time motivated to work on it. However, in the coming years I have realized that with not having as much deep knowledge at native development, I wasn't able to work on it how I imagined to do. Additionally, I had more trouble really motivating myself, taking the necesssary free time and wrapping around developing this app. I then realized lately, that I personally haven't been using this app as extensively as I thought I would since I ended up only having one wall panel - which uses the Home Assistant companion app for this task. After ignoring issues and notifications all around, I've decided to archive this repository instead of disappointing additional people.
+WallPanel Reborn is an Android app for web-based dashboards and home automation platforms such as Home Assistant. It turns a wall-mounted tablet or photo frame into an always-on control panel.
 
-If anybody else wants to step up on continuing development and maintaining this project, you can contact me in the e-mail address inside the app and we can organize the transfer of the project, transfer for Google Play app, its signing keys, domain, and everything in-between.
+It continues [WallPanel](https://github.com/TheTimeWalker/wallpanel-android) by ThanksMister and TheTimeWalker, which was archived in 2025. Reborn modernises the build and targets current Android, while still supporting old wall-panel hardware.
 
-Thank you!
+## Install
 
-# WallPanel
+Download the latest APK from [GitHub Releases](https://github.com/beecho01/wallpanel-reborn/releases) and sideload it. For most devices, use the `arm64-v8a` APK. If you're not sure which one you need, use the `universal` APK.
 
-WallPanel is an Android application for Web Based Dashboards and Home Automation Platforms. You can either sideload the application to your Android device from the [release section](https://github.com/thetimewalker/wallpanel-android/releases) or install the application from [Google Play](https://play.google.com/store/apps/details?id=xyz.wallpanel.app).
+WallPanel Reborn has a different application ID (`io.github.beecho01.wallpanelreborn`) from the original app, so you can install both side by side. Settings don't carry over.
 
-<a href='https://play.google.com/store/apps/details?id=xyz.wallpanel.app&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width='240'/></a>
+## Documentation
+
+See the [WallPanel Reborn documentation](https://beecho01.github.io/wallpanel-reborn/) for setup, MQTT and HTTP commands, sensors, the screensaver and camera streaming.
 
 ## Screenshots
 
@@ -18,73 +20,60 @@ WallPanel is an Android application for Web Based Dashboards and Home Automation
 <img src="img/dashboard3.png" width="640" />
 <img src="img/dashboard1.png" width="640" />
 
-## Support
-
-For issues, feature requests, use the [Github issues tracker](https://github.com/thetimewalker/wallpanel-android/issues). For examples and to learn how to use each feature, visit [WallPanel Documentation](https://wallpanel.xyz/).
-
-### Common Issues
-
-Rendering issues with the webpage you are trying to view. Android applications use a component to render webpages, it's called the WebView component. WebView is not the same as Google Chrome app, it does not render the pages the same. The biggest issue is that your version of WebView is not capable of rendering the webpage you are trying to view. The only way possible to fix this issue is to update the WebView component (from Google Play Store), use a different webpage, or update your device OS.
-
 ## Features
 
-- Web Based Dashboards and Home Automation Platforms support.
-- Set application as Android Home screen (optional)
-- Use code to access the settings and make the settings button invisible.
-- Camera support for streaming video, motion detection, face detection, and QR Code reading.
-- Google Text-to-Speech support to speak notification messages using MQTT or HTTP.
-- MQTT or HTTP commands to remotely control device and application (url, brightness, wake, etc.).
-- Sensor data reporting for the device (temperature, light, pressure, battery).
-- Streaming MJPEG server support using the device camera.
-- Screensaver feature that can be dismissed with motion or face detection.
-- Support for Android 4.4 (API level 19) and greater devices.
-- Support for launching external applications using intent URL
+- Shows any web-based dashboard or home automation front end full screen
+- Can optionally be set as the Android home screen (kiosk use)
+- Settings protected by a code, with a settings button that can be hidden
+- Camera support for streaming video, motion detection, face detection and QR code reading
+- Text-to-speech for notification messages over MQTT or HTTP
+- Remote control over MQTT or HTTP (URL, brightness, wake and more)
+- Reports device sensor data (temperature, light, pressure, battery)
+- MJPEG streaming server using the device camera
+- Screensaver that can be dismissed by motion or face detection
+- Opens external apps using intent URLs
 
-## Hardware & Software
+## Requirements
 
-- Android Device running Android OS 4.4 or greater. Note: The WebView shipped with Android 4.4 (KitKat) is based on the same code as Chrome for Android version 30. This WebView does not have full feature parity with Chrome for Android and is given the version number 30.0.0.0.
+- Android 7.0 (API 24) or newer
+- Pages render using the device's Android System WebView, which is not the same as Chrome. On old devices with an outdated WebView, modern dashboards may not render correctly. A future release will be able to load a newer WebView engine on these devices.
 
-**_ If you have need support for older Android 4.0 devices (those below Android 4.4), you want to use the [legacy](https://github.com/thanksmister/wallpanel-android-legacy) version of the application. Alternatively you can download an APK from the release section prior to release v0.8.8-beta.6 _**
+## Building
 
-## Quick Start
+Requirements:
 
-You can either side load the application to your device from the [release section](https://github.com/thetimewalker/wallpanel-android/releases) or install the application from [Google Play](https://play.google.com/store/apps/details?id=xyz.wallpanel.app). The application will open to the welcome page with a link to update the settings. Open the settings by clicking the dashboard floating icon. In the settings, set your web page or home automation platform url. Also set the code for accessing the settings, the default is 1234.
+- JDK 21 (for example the JBR that ships with Android Studio)
+- Android SDK with platform `android-37` and build-tools `37.0.0`
 
-## Building the Application
+Create a `local.properties` file in the project root that points to your SDK:
 
-To build the application locally, checkout the code from Github and load the project into Android Studio with Android API 31 or higher. You will need to remove the Firebase dependency in the build.gradle file, this is not required. Remove the following dependencies:
-
-```
-apply plugin: 'com.google.firebase.crashlytics'
-
-implementation 'com.google.firebase:firebase-core:20.1.1'
-implementation 'com.google.firebase:firebase-crashlytics-ktx'
-implementation 'com.google.firebase:firebase-analytics-ktx'
+```properties
+sdk.dir=C:/Users/<you>/AppData/Local/Android/Sdk
 ```
 
-Remove this if you are building the application for devices that do not support Google Services.
+Optionally, add `code`, `hassUrl`, `broker`, `brokerUsername` and `brokerPass` to prefill debug builds.
 
+Then build:
+
+```sh
+./gradlew :WallPanelApp:assembleDebug
 ```
-apply plugin: 'com.google.gms.google-services'
 
-implementation 'com.google.android.gms:play-services-vision:20.1.3'
-```
+The APKs are written to `WallPanelApp/build/outputs/apk/debug/`.
 
-The project should compile normally.
+## Contributing
 
-## Limitations
+Bug reports and feature requests are welcome in the [issue tracker](https://github.com/beecho01/wallpanel-reborn/issues). Pull requests are welcome too.
 
-Android devices use WebView to render webpages, This WebView does not have full feature parity with Chrome for Android and therefore pages that render in Chrome may not render nicely in Wall Panel. For example, WebView that shipped with Android 4.4 (KitKat) devices is based on the same code as Chrome for Android version 30.
+## Credits
 
-This WebView does not have full feature parity with Chrome for Android and is given the version number 30.0.0.0. If you find that you cannot render a webpage, it is most likely that the version of WebView on your device does not support the CSS/HTML of that page. You have little recourse but to update the webpage, as there is nothing to be done to the WebView to make it compatible with your code.
+WallPanel Reborn is a continuation of WallPanel, built as an homage to the original:
 
-Setting WallPanel as the default Home application will always load this application as your home. Removing this feature is difficutl without uninstalling the application. So please do this is you wish to use the application as a "kiosk" type application.
+- [quadportnick](https://github.com/quadportnick), who started [the original WallPanel (formerly HomeDash)](https://github.com/WallPanel-Project/wallpanel-android)
+- [ThanksMister](https://github.com/thanksmister), who maintained and developed [WallPanel](https://github.com/thanksmister/wallpanel-android) for many years
+- [TheTimeWalker](https://github.com/TheTimeWalker), who maintained [WallPanel](https://github.com/TheTimeWalker/wallpanel-android) from 2022 until it was archived
+- Everyone who [contributed](https://github.com/TheTimeWalker/wallpanel-android/graphs/contributors) to the original project
 
-## Contribution
+## Licence
 
-All are welcome to propose a feature request, report or bug, or contribute to the project by updating examples or with a PR for new features. Thanks to all the [contributes](https://github.com/thetimewalker/wallpanel-android/graphs/contributors) who have contributed to the project!
-
-## Special Thanks
-
-- [ThanksMister](https://github.com/thanksmister) for maintaining and continued development of [WallPanel](https://github.com/thanksmister/wallpanel-android/) for multiple years.
-- [quadportnick](https://github.com/quadportnick) for starting [the original WallPanel (formerly HomeDash)](https://github.com/WallPanel-Project/wallpanel-android).
+Apache License 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
