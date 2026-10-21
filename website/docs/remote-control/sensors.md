@@ -18,14 +18,14 @@ temperature | unit, value | ```{"unit":"°C", "value":"24"}``` |
 
 * Sensor values are constructed as JSON per the above table
 * For MQTT
-  * WallPanel publishes all sensors to MQTT under ```[baseTopic]sensor```
+  * WallPanel Reborn publishes all sensors to MQTT under ```[baseTopic]sensor```
   * Each sensor publishes to a subtopic based on the type of sensor
     * Example: basetopic: ```wallpanel/mywallpanel/``` battery sensor data is published to: ```wallpanel/mywallpanel/sensor/battery```
 
 ### Home Assistant Examples
 
 :::note
-WallPanel supports Home Assistant auto-detection, so manually configuring these sensors is usually not needed.
+WallPanel Reborn supports Home Assistant auto-detection, so manually configuring these sensors is usually not needed.
 :::
 
 ```yaml
@@ -72,7 +72,7 @@ face | value | ```{"value": false}``` | Published immediately when face detected
 qrcode | value | ```{"value": data}``` | Published immediately when QR Code scanned
 
 * For MQTT
-  * WallPanel publishes all sensors to MQTT under ```[baseTopic]/sensor```
+  * WallPanel Reborn publishes all sensors to MQTT under ```[baseTopic]/sensor```
   * Each sensor publishes to a subtopic based on the type of sensor
     * Example: ```wallpanel/mywallpanel/sensor/motion```
 
@@ -118,5 +118,5 @@ brightness | true/false | ```{"brightness":100}``` | Current brightness value of
 * For REST
   * GET the JSON from URL ```http://[mywallpanel]:2971/api/state```
 * For MQTT
-  * WallPanel publishes state to topic ```[baseTopic]state```
+  * WallPanel Reborn publishes state to topic ```[baseTopic]state```
     * Default Topic: ```wallpanel/mywallpanel/state```

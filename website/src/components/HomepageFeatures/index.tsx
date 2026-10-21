@@ -12,9 +12,10 @@ const FeatureList: FeatureItem[] = [
     title: 'Easy and Free',
     description: (
       <>
-        WallPanel allows any Android 4.4+ or FireOS tablet to display web-based
-        dashboards. It is free and open-source. Use it for Home Assistant
-        dashboards, security camera monitoring, or anything else!
+        WallPanel Reborn turns any Android 7.0+ tablet or photo frame into a
+        full-screen display for web-based dashboards. It is free and
+        open-source. Use it for Home Assistant dashboards, security camera
+        monitoring, or anything else!
       </>
     ),
   },
@@ -22,9 +23,9 @@ const FeatureList: FeatureItem[] = [
     title: 'Remote Control',
     description: (
       <>
-        WallPanel can be controlled via MQTT or HTTP, allowing you to remotely
-        navigate to other web pages, speak (Text to Speech), play audio, change
-        the brightness, and more using MQTT. Plus, WallPanel publishes sensors
+        WallPanel Reborn can be controlled over MQTT or HTTP, so you can
+        remotely navigate to other web pages, speak (text-to-speech), play
+        audio, change the brightness and more. It also publishes sensors
         to MQTT so you can easily track the tablet's battery life, temperature,
         and more.
       </>

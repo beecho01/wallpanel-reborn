@@ -28,7 +28,7 @@ volume | data | ```{"volume": 100}``` | Changes the audio volume, value 0-100 (i
 * For REST
   * POST the JSON to URL ```http://<the.device.ip.address>:2971/api/command```
 * For MQTT
-  * WallPanel subscribes to topic ```wallpanel/[baseTopic]/command```
+  * WallPanel Reborn subscribes to topic ```wallpanel/[baseTopic]/command```
     * Default Topic: ```wallpanel/mywallpanel/command```
   * Publish a JSON payload to this topic (be mindful of quotes in JSON should be single quotes not double)
 

@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'WallPanel Reborn',
-  tagline: 'Android application for web-based dashboards',
+  tagline: 'Android app for web-based dashboards',
   url: 'https://beecho01.github.io',
   baseUrl: '/wallpanel-reborn/',
   onBrokenLinks: 'throw',

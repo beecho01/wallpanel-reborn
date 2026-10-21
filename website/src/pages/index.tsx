@@ -30,7 +30,7 @@ export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
-      title={`WallPanel Reborn`}
+      title="Home"
       description="WallPanel Reborn is an Android app for web-based dashboards and home automation platforms."
     >
       <HomepageHeader />
